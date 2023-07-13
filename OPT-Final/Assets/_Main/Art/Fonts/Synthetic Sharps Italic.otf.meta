@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: cf28dd79f2f90104aa15a3288b0ecda2
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Synthetic Sharps
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 9602208073a21c04facdef88a53f18c0, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
