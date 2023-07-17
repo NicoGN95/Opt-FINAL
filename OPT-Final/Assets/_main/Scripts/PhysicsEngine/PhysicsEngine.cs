@@ -12,23 +12,8 @@ namespace _main.Scripts.PhysicsEngine
     {
         private static IEventService EventService => ServiceLocator.Get<IEventService>();
 
-        private static List<IPhysicsBody> m_bodies;
-        /*
-        public static PhysicsEngine Instance;
-
-        private void Awake()
-        {
-            if (Instance != default)
-            {
-                Destroy(gameObject);
-                return;
-            }
-
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-            
-            Initialize();
-        }*/
+        private static List<PhysicsBody> m_bodies;
+        
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSplashScreen)]
         private static void Initialize()
@@ -94,15 +79,15 @@ namespace _main.Scripts.PhysicsEngine
 
                 l_body.Acceleration = Vector2.zero;
   
-                l_body.VelocityAng += l_body.AccelerationAng * l_deltaTime;
+                /*l_body.VelocityAng += l_body.AccelerationAng * l_deltaTime;
 
                 l_body.AddAngle(l_body.VelocityAng * l_deltaTime);
 
-                l_body.VelocityAng = 0;
+                l_body.VelocityAng = 0;*/
             }
         }
         
-        private static void ResolveCollision(IPhysicsBody p_bodyA, IPhysicsBody p_bodyB)
+        private static void ResolveCollision(PhysicsBody p_bodyA, PhysicsBody p_bodyB)
         {
             var l_bodyATypeCollider = p_bodyA.GetTypeCollider();
             var l_bodyBTypeCollider = p_bodyB.GetTypeCollider();
@@ -121,7 +106,7 @@ namespace _main.Scripts.PhysicsEngine
             }
         }
         
-        private static void BoxWithBoxResolveCollision(IPhysicsBody p_bodyA, IPhysicsBody p_bodyB)
+        private static void BoxWithBoxResolveCollision(PhysicsBody p_bodyA, PhysicsBody p_bodyB)
         {
             var l_dir = (p_bodyA.GetPosition() - p_bodyB.GetPosition()).normalized;
             
@@ -129,10 +114,10 @@ namespace _main.Scripts.PhysicsEngine
                 p_bodyA.Velocity = Vector2.Reflect(p_bodyA.Velocity, l_dir);
             
             if (!p_bodyB.GetStatic())
-                p_bodyB.Velocity = Vector2.Reflect(p_bodyB.Velocity, -l_dir);*
+                p_bodyB.Velocity = Vector2.Reflect(p_bodyB.Velocity, -l_dir);
         }
 
-        private static void CircleWithCircleResolveCollision(IPhysicsBody p_bodyA, IPhysicsBody p_bodyB)
+        private static void CircleWithCircleResolveCollision(PhysicsBody p_bodyA, PhysicsBody p_bodyB)
         {
             var l_dir = (p_bodyA.GetPosition() - p_bodyB.GetPosition()).normalized;
             var l_parallel = new Vector2(l_dir.x, -l_dir.y);
@@ -158,10 +143,10 @@ namespace _main.Scripts.PhysicsEngine
                 p_bodyB.Velocity = l_dir * l_v2 + l_parallel * l_velPar2;
         }
         
-        private static void CircleWithBoxResolveCollision(IPhysicsBody p_bodyA, IPhysicsBody p_bodyB)
+        private static void CircleWithBoxResolveCollision(PhysicsBody p_bodyA, PhysicsBody p_bodyB)
         {
-            IPhysicsBody l_circleBody;
-            IPhysicsBody l_boxBody;
+            PhysicsBody l_circleBody;
+            PhysicsBody l_boxBody;
             if (p_bodyA.GetTypeCollider() == TypeCollider.Circle)
             {
                 l_circleBody = p_bodyA;
@@ -176,11 +161,12 @@ namespace _main.Scripts.PhysicsEngine
             var l_pointInBox = l_circleBody.GetPosition();
             var l_boxPosition = l_boxBody.GetPosition();
             var l_sizeBox = l_boxBody.GetSizeCollider() / 2;
+            
             if (l_pointInBox.x < l_boxPosition.x - l_sizeBox.x)
             {
                 l_pointInBox.x = l_boxPosition.x - l_sizeBox.x;
             }
-            if (l_pointInBox.x > l_boxPosition.x + l_sizeBox.x)
+            else if (l_pointInBox.x > l_boxPosition.x + l_sizeBox.x)
             {
                 l_pointInBox.x = l_boxPosition.x + l_sizeBox.x;
             }
@@ -189,25 +175,24 @@ namespace _main.Scripts.PhysicsEngine
             {
                 l_pointInBox.y = l_boxPosition.y - l_sizeBox.y;
             }
-            if (l_pointInBox.y > l_boxPosition.y + l_sizeBox.y)
+            else if (l_pointInBox.y > l_boxPosition.y + l_sizeBox.y)
             {
                 l_pointInBox.y = l_boxPosition.y + l_sizeBox.y;
             }
-
+            
             var l_dir = (l_circleBody.GetPosition() - l_pointInBox).normalized;
 
+            if (!l_boxBody.GetStatic())
+                l_boxBody.AddForce(l_circleBody.Velocity);
+            
             if (!l_circleBody.GetStatic())
             {
-                l_circleBody.SetPosition(l_pointInBox + (l_boxPosition - l_circleBody.GetPosition()).normalized * l_circleBody.GetRadius());
+                //l_circleBody.SetPosition(l_pointInBox + (l_circleBody.GetPosition() - l_boxPosition).normalized * l_circleBody.GetRadius());
                 l_circleBody.Velocity = Vector2.Reflect(l_circleBody.Velocity, l_dir);
             }
-            
-            //Todo: Testing
-            if (!l_boxBody.GetStatic())
-                l_boxBody.AddForceOnPoint(Vector2.Reflect(l_boxBody.Velocity, -l_dir), l_pointInBox);
         }
 
-        private static bool CheckCollision(IPhysicsBody p_bodyA, IPhysicsBody p_bodyB)
+        private static bool CheckCollision(PhysicsBody p_bodyA, PhysicsBody p_bodyB)
         {
             var l_typeCollisionA = p_bodyA.GetTypeCollider();
             var l_typeCollisionB = p_bodyB.GetTypeCollider();
@@ -249,9 +234,9 @@ namespace _main.Scripts.PhysicsEngine
             }
         }
 
-        public static void AddPhysicsBody(IPhysicsBody p_newBody)
+        public static void AddPhysicsBody(PhysicsBody p_newBody)
         {
-            m_bodies ??= new List<IPhysicsBody>();
+            m_bodies ??= new List<PhysicsBody>();
             
             if (!m_bodies.Contains(p_newBody))
                 m_bodies.Add(p_newBody);
@@ -259,7 +244,7 @@ namespace _main.Scripts.PhysicsEngine
             Debug.Log("Add body");
         }
         
-        public static void RemovePhysicsBody(IPhysicsBody p_removeBody)
+        public static void RemovePhysicsBody(PhysicsBody p_removeBody)
         {
             if (m_bodies.Contains(p_removeBody))
                 m_bodies.Remove(p_removeBody);

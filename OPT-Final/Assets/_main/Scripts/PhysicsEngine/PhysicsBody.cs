@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace _main.Scripts.PhysicsEngine
 {
-    public class PhysicsBody : MonoBehaviour, IPhysicsBody
+    public class PhysicsBody : MonoBehaviour
     {
         [SerializeField] private bool isEnable = true;
         [SerializeField] private TypeCollider typeCollider;
@@ -27,9 +27,6 @@ namespace _main.Scripts.PhysicsEngine
             AddTorque(startVelocityAng);
         }
 #endif
-        
-        private float m_angle;
-        private float m_accelerationAng;
 
         public event Action<GameObject> OnCollisionEvent;
         public event Action<GameObject> OnTriggerEvent;
@@ -49,9 +46,10 @@ namespace _main.Scripts.PhysicsEngine
             switch (p_forceMode2D)
             {
                 case ForceMode2D.Force:
-                    Velocity += p_force / mass;
+                    Acceleration += p_force / mass;
                     break;
                 case ForceMode2D.Impulse:
+                    Velocity += p_force / mass;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(p_forceMode2D), p_forceMode2D, null);
@@ -62,7 +60,7 @@ namespace _main.Scripts.PhysicsEngine
         {
             AddForce(p_force);
 
-            var l_diff = ((Vector2)transform.position) - p_point;
+            var l_diff = (Vector2)transform.position - p_point;
             var l_torqueX = p_force.x * l_diff.y;
             var l_torqueY = -p_force.y * l_diff.x;
 
@@ -71,20 +69,9 @@ namespace _main.Scripts.PhysicsEngine
  
         public void AddTorque(float p_torque)
         {
-            VelocityAng += p_torque / (mass * inertia);
+            AccelerationAng += p_torque / (mass * inertia);
         }
 
-        public Vector2 Position
-        {
-            get => transform.position;
-            set => transform.position = value;
-        }
-        public float Angle
-        {
-            get => transform.eulerAngles.x;
-            set => transform.eulerAngles = new Vector3(value, 0f);
-        }
-        
         public Vector2 Velocity { get; set; }
         public Vector2 Acceleration { get; set; }
         public float VelocityAng { get; set; }
@@ -96,10 +83,14 @@ namespace _main.Scripts.PhysicsEngine
         {
             var l_transform = transform;
             var l_eulerAngles = l_transform.eulerAngles;
-            l_transform.eulerAngles = new Vector3(p_newValue, l_eulerAngles.y, l_eulerAngles.z);
+            l_transform.rotation = Quaternion.Euler(new Vector3(l_eulerAngles.x, l_eulerAngles.y, p_newValue));
         }
         
-        public void AddAngle(float p_newValue) => transform.eulerAngles += new Vector3(p_newValue, 0f);
+        public void AddAngle(float p_newValue)
+        {
+            var l_eulerAngles = transform.rotation.eulerAngles;
+            transform.rotation = Quaternion.Euler(new Vector3(l_eulerAngles.x, l_eulerAngles.y, l_eulerAngles.z + p_newValue));
+        }
 
         public void SetEnable(bool p_newValue) => isEnable = p_newValue;
         public void SetTrigger(bool p_newValue) => isTrigger = p_newValue;
@@ -132,5 +123,25 @@ namespace _main.Scripts.PhysicsEngine
         {
             OnCollisionEvent?.Invoke(p_gameObject);
         }
+
+#if UNITY_EDITOR
+
+        [SerializeField] private PhysicsBody boxBody;
+        
+        private void OnDrawGizmosSelected()
+        {
+            switch (typeCollider)
+            {
+                case TypeCollider.Circle:
+                    Gizmos.DrawWireSphere(transform.position, radius);
+                    break;
+                case TypeCollider.Box:
+                    Gizmos.DrawWireCube(transform.position, sizeCollider);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+#endif
     }
 }

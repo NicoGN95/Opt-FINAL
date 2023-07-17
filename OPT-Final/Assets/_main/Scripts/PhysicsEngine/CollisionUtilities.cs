@@ -26,22 +26,23 @@ namespace _main.Scripts.PhysicsEngine
             float p_circleRadius)
         {
             var l_position = p_circlePosition;
-            if (p_circlePosition.x < p_boxPosition.x)
+            var l_boxSizeHalfExtend = p_boxSize / 2;
+            if (l_position.x < p_boxPosition.x - l_boxSizeHalfExtend.x)
             {
-                l_position.x = p_boxPosition.x;
+                l_position.x = p_boxPosition.x - l_boxSizeHalfExtend.x;
             }
-            else if (p_circlePosition.x > p_boxPosition.x + p_boxSize.x)
+            else if (l_position.x > p_boxPosition.x + l_boxSizeHalfExtend.x)
             {
-                l_position.x = p_boxPosition.x + p_boxSize.x;
+                l_position.x = p_boxPosition.x + l_boxSizeHalfExtend.x;
             }
-        
-            if (p_circlePosition.y < p_boxPosition.y)
+            
+            if (l_position.y < p_boxPosition.y - l_boxSizeHalfExtend.y)
             {
-                l_position.y = p_boxPosition.y;
+                l_position.y = p_boxPosition.y - l_boxSizeHalfExtend.y;
             }
-            else if (p_circlePosition.y > p_boxPosition.y + p_boxSize.y)
+            else if (l_position.y > p_boxPosition.y + l_boxSizeHalfExtend.y)
             {
-                l_position.y = p_boxPosition.y + p_boxSize.y;
+                l_position.y = p_boxPosition.y + l_boxSizeHalfExtend.y;
             }
 
             var l_vectorDistance = p_circlePosition - l_position;
