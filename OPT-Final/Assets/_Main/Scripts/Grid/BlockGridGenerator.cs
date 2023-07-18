@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using _main.Scripts.Managers;
 using UnityEngine;
 
 namespace _main.Scripts.Grid
@@ -17,6 +18,7 @@ namespace _main.Scripts.Grid
 
         private void Awake()
         {
+            GameManager.Instance.SetGrid(this);
             Initialize();
         }
 
@@ -48,7 +50,7 @@ namespace _main.Scripts.Grid
                     
                     var l_block = Instantiate(blocksPrefabs[l_blockId]);
                     //------------
-                    l_block.Initialize(l_worldPoint, new Vector2(l_x, l_y));
+                    l_block.Initialize(l_worldPoint, new Vector2(l_x, l_y), l_x == 0);
                     
                     l_grid[l_x, l_y] = l_block;
                 }

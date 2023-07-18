@@ -5,25 +5,25 @@ namespace _main.Scripts.Pools
 {
     public class PoolGeneric<T> where T : Object
     {
-        private readonly T prefab;
-        private readonly Queue<T> availables = new();
+        private readonly T m_prefab;
+        private readonly Queue<T> m_availables = new();
         private readonly List<T> m_inUse = new();
 
         public PoolGeneric(T p_prefab)
         {
-            prefab = p_prefab;
+            m_prefab = p_prefab;
         }
 
         public T GetOrCreate()
         {
-            if (availables.Count > 0)
+            if (m_availables.Count > 0)
             {
-                var l_obj = availables.Dequeue();
+                var l_obj = m_availables.Dequeue();
                 m_inUse.Add(l_obj);
                 return l_obj;
             }
 
-            var l_newObj = Object.Instantiate(prefab);
+            var l_newObj = Object.Instantiate(m_prefab);
             m_inUse.Add(l_newObj);
             return l_newObj;
         }
@@ -34,13 +34,13 @@ namespace _main.Scripts.Pools
                 return;
             
             m_inUse.Remove(p_poolEntry);
-            availables.Enqueue(p_poolEntry);
+            m_availables.Enqueue(p_poolEntry);
         }
 
         public void ClearData()
         {
             m_inUse.Clear();
-            availables.Clear();
+            m_availables.Clear();
         }
     }
 }
