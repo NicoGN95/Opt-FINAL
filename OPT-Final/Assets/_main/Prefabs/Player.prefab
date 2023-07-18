@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1552264050934660315}
   - component: {fileID: 9059351645999457262}
   - component: {fileID: 1409701087357915750}
-  - component: {fileID: 3512632896873160296}
   m_Layer: 0
   m_Name: View
   m_TagString: Untagged
@@ -84,19 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3512632896873160296
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7282386019436097037}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8181032469625753966
 GameObject:
   m_ObjectHideFlags: 0
@@ -106,9 +92,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1187729656159106698}
+  - component: {fileID: 2697751081796739449}
+  - component: {fileID: 2697751081796739450}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -129,3 +117,44 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2697751081796739449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8181032469625753966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c057c1b80f894dc4e8c83d36490b77f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputManager: {fileID: 0}
+  speed: 10
+  leftScreenBorder: -14.5
+  rightScreenBorder: 14.5
+--- !u!114 &2697751081796739450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8181032469625753966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93e15290cd4a45009ebc5e3fc9269cec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isEnable: 1
+  typeCollider: 1
+  sizeCollider: {x: 3, y: 1}
+  radius: 0
+  mass: 1
+  inertia: 0
+  isStatic: 0
+  isKinematic: 0
+  isTrigger: 0
+  isGravity: 0
+  startVelocity: {x: 0, y: 0}
+  startVelocityAng: 0
+  boxBody: {fileID: 0}

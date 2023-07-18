@@ -46,9 +46,9 @@ namespace _main.Scripts.PhysicsEngine
                     
                         if (!l_bodyA.GetTrigger() && !l_bodyB.GetTrigger())
                         {
+                            ResolveCollision(l_bodyA, l_bodyB);
                             l_bodyA.OnColliderEventHandler(l_bodyB.GetGameObject());
                             l_bodyB.OnColliderEventHandler(l_bodyA.GetGameObject());
-                            ResolveCollision(l_bodyA, l_bodyB);
                         }
                         else
                         {
@@ -70,7 +70,7 @@ namespace _main.Scripts.PhysicsEngine
                 var l_deltaTime = Time.deltaTime;
                 
                 if (l_body.GetGravity() && !l_body.GetKinematic())
-                    l_body.AddForce(Physics2D.gravity * l_deltaTime);
+                    l_body.AddForce(Physics2D.gravity);
                 
                 l_body.Velocity += l_body.Acceleration * l_deltaTime;
 
@@ -144,6 +144,7 @@ namespace _main.Scripts.PhysicsEngine
         
         private static void CircleWithBoxResolveCollision(PhysicsBody p_bodyA, PhysicsBody p_bodyB)
         {
+            Debug.Log("A");
             PhysicsBody l_circleBody;
             PhysicsBody l_boxBody;
             if (p_bodyA.GetTypeCollider() == TypeCollider.Circle)
@@ -181,13 +182,15 @@ namespace _main.Scripts.PhysicsEngine
             
             var l_dir = (l_circleBody.GetPosition() - l_pointInBox).normalized;
 
-            if (!l_boxBody.GetStatic())
-                l_boxBody.AddForce(l_circleBody.Velocity);
+            //if (!l_boxBody.GetStatic())
+              //  l_boxBody.AddForce(l_circleBody.Velocity);
             
             if (!l_circleBody.GetStatic())
-            {
+            { 
                 //l_circleBody.SetPosition(l_pointInBox + (l_circleBody.GetPosition() - l_boxPosition).normalized * l_circleBody.GetRadius());
+                Debug.Log("prev= " + l_circleBody.Velocity);
                 l_circleBody.Velocity = Vector2.Reflect(l_circleBody.Velocity, l_dir);
+                Debug.Log("Post= " + l_circleBody.Velocity);
             }
         }
 
@@ -202,8 +205,7 @@ namespace _main.Scripts.PhysicsEngine
                     switch (l_typeCollisionB)
                     {
                         case TypeCollider.Box:
-                            return CollisionUtilities.BoxCollider(p_bodyA.GetPosition(), p_bodyA.GetSizeCollider(),
-                                p_bodyB.GetPosition(), p_bodyB.GetSizeCollider());
+                            return CollisionUtilities.BoxCollider(p_bodyA, p_bodyB);
                             
                         case TypeCollider.Circle:
                         {

@@ -50,7 +50,7 @@ namespace _main.Scripts.Grid
                     
                     var l_block = Instantiate(blocksPrefabs[l_blockId]);
                     //------------
-                    l_block.Initialize(l_worldPoint, new Vector2(l_x, l_y), l_x == 0);
+                    l_block.Initialize(l_worldPoint, new Vector2(l_x, l_y), l_y == 0);
                     
                     l_grid[l_x, l_y] = l_block;
                 }

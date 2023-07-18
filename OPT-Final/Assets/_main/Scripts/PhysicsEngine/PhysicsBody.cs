@@ -41,21 +41,15 @@ namespace _main.Scripts.PhysicsEngine
             PhysicsEngine.RemovePhysicsBody(this);
         }
         
-        public void AddForce(Vector2 p_force, ForceMode2D p_forceMode2D = ForceMode2D.Force)
+        public void AddForce(Vector2 p_force)
         {
-            switch (p_forceMode2D)
-            {
-                case ForceMode2D.Force:
-                    Acceleration += p_force / mass;
-                    break;
-                case ForceMode2D.Impulse:
-                    Velocity += p_force / mass;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(p_forceMode2D), p_forceMode2D, null);
-            }
+            Acceleration += p_force / mass;
         }
- 
+
+        public void AddImpulse(Vector2 p_force)
+        {
+            Velocity += p_force / mass;
+        }
         public void AddForceOnPoint(Vector2 p_force, Vector2 p_point)
         {
             AddForce(p_force);
@@ -72,13 +66,13 @@ namespace _main.Scripts.PhysicsEngine
             AccelerationAng += p_torque / (mass * inertia);
         }
 
-        public Vector2 Velocity { get; set; }
+        public Vector2 Velocity { get; set; } = Vector2.zero;
         public Vector2 Acceleration { get; set; }
         public float VelocityAng { get; set; }
         public float AccelerationAng { get; set; }
 
         public void SetPosition(Vector2 p_newValue) => transform.position = p_newValue;
-        public void AddPosition(Vector2 p_value) => transform.position += p_value.XY0();
+        public void AddPosition(Vector2 p_value) => transform.position += new Vector3(p_value.x, p_value.y);
         public void SetAngle(float p_newValue)
         {
             var l_transform = transform;

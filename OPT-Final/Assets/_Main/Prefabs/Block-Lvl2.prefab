@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4985363032488912563}
   - component: {fileID: 3258873190625840795}
   - component: {fileID: 3913684943311922175}
-  - component: {fileID: 793636164011843791}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -28,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 2798711961113432897}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 1, z: 1}
+  m_LocalScale: {x: 4, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5738272593027459116}
@@ -84,19 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &793636164011843791
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2798711961113432897}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6468014084643979827
 GameObject:
   m_ObjectHideFlags: 0
@@ -107,6 +93,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5738272593027459116}
   - component: {fileID: 4547201889869730695}
+  - component: {fileID: 5628744153880047974}
   m_Layer: 0
   m_Name: Block-Lvl2
   m_TagString: Untagged
@@ -145,3 +132,28 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 9d6fe8fcc7dafbd4288ec30e2dc98d3e, type: 2}
   xId: 0
   yId: 0
+--- !u!114 &5628744153880047974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6468014084643979827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93e15290cd4a45009ebc5e3fc9269cec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isEnable: 1
+  typeCollider: 1
+  sizeCollider: {x: 4, y: 1}
+  radius: 0
+  mass: 1
+  inertia: 0
+  isStatic: 0
+  isKinematic: 0
+  isTrigger: 0
+  isGravity: 0
+  startVelocity: {x: 0, y: 0}
+  startVelocityAng: 0
+  boxBody: {fileID: 0}

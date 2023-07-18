@@ -1,3 +1,4 @@
+using System;
 using _main.Scripts.PhysicsEngine;
 using _main.Scripts.Services;
 using _main.Scripts.StaticClass;
@@ -23,7 +24,23 @@ namespace _main.Scripts.Controllers
             inputManager.actions["Movement"].performed += OnMovementPerformed;
             inputManager.actions["Movement"].canceled += OnMovementCanceled;
             EventService.AddListener(EventsDefinitions.FIXED_UPDATE_OBJECT_EVENT_ID, MyFixedUpdate);
+            
+            m_myBody.OnCollisionEvent += MyOnOnCollisionEvent;
         }
+
+        private void OnDisable()
+        {
+            inputManager.actions["Movement"].performed -= OnMovementPerformed;
+            inputManager.actions["Movement"].canceled -= OnMovementCanceled;
+            EventService.RemoveListener(EventsDefinitions.FIXED_UPDATE_OBJECT_EVENT_ID, MyFixedUpdate);
+            m_myBody.OnCollisionEvent -= MyOnOnCollisionEvent;
+        }
+
+        private void MyOnOnCollisionEvent(GameObject p_obj)
+        {
+            
+        }
+
         private void OnMovementPerformed(InputAction.CallbackContext p_obj)
         {
             m_MovementInput = p_obj.ReadValue<float>();
@@ -37,17 +54,19 @@ namespace _main.Scripts.Controllers
             if ((transform.position.x < leftScreenBorder))
             {
                 m_myBody.Velocity = Vector2.zero;
-                transform.position =new Vector3(leftScreenBorder, transform.position.y);
+                transform.position = new Vector3(leftScreenBorder, transform.position.y);
                 return;
             }
 
             if (transform.position.x > rightScreenBorder)
             {
                 m_myBody.Velocity = Vector2.zero;
-                transform.position =new Vector3(rightScreenBorder, transform.position.y);
+                transform.position = new Vector3(rightScreenBorder, transform.position.y);
                 return;
             }
-            m_myBody.Velocity = Vector2.right * m_MovementInput * speed;
+
+            m_myBody.AddForce(Vector2.right * m_MovementInput * speed);
+            //m_myBody.Velocity = ;
         }
 
         

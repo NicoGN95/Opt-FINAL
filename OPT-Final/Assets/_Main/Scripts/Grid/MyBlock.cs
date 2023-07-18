@@ -15,10 +15,10 @@ namespace _main.Scripts.Grid
         private void Awake()
         {
             m_myBody = GetComponent<PhysicsBody>();
-            m_myBody.OnCollisionEvent += MyOnOnCollisionEvent;
+            m_myBody.OnCollisionEvent += MyOnCollisionEvent;
         }
 
-        private void MyOnOnCollisionEvent(GameObject p_obj)
+        private void MyOnCollisionEvent(GameObject p_obj)
         {
             if (p_obj.CompareTag("Ball"))
             {

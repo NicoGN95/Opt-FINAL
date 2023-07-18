@@ -5,14 +5,17 @@ namespace _main.Scripts.PhysicsEngine
 {
     public static class CollisionUtilities
     {
-        public static bool BoxCollider(Vector2 p_position1, Vector2 p_size1, Vector2 p_position2, Vector2 p_size2)
+        public static bool BoxCollider(PhysicsBody p_bodyA, PhysicsBody p_bodyB)
         {
-            var l_distance = new Vector2(p_position1.x - p_position2.x, p_position1.y - p_position2.y);
+            var l_posA = p_bodyA.GetPosition();
+            var l_posB = p_bodyB.GetPosition();
+            var l_sizeA = p_bodyA.GetSizeCollider() / 2;
+            var l_sizeB = p_bodyA.GetSizeCollider() / 2;
 
-            var l_sumSize = new Vector2((p_size1.x / 2 + p_size2.x / 2), (p_size1.y / 2 + p_size2.y / 2));
-
-            Debug.Log($"{l_distance.x <= l_sumSize.x && l_distance.y <= l_sumSize.y}");
-            return l_distance.x <= l_sumSize.x && l_distance.y <= l_sumSize.y;
+            return l_posA.x + l_sizeA.x > l_posB.x - l_sizeB.x &&
+                   l_posA.y + l_sizeA.y > l_posB.y - l_sizeB.y &&
+                   l_posA.x - l_sizeA.x < l_posB.x + l_sizeB.x &&
+                   l_posA.y - l_sizeA.y < l_posB.y + l_sizeB.y;
         }
 
         public static bool CircleCollider(Vector2 p_position1, float p_radio1, Vector2 p_position2, float p_radio2)
