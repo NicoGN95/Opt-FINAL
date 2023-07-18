@@ -8,9 +8,12 @@ namespace _main.Scripts.StaticClass
 {
     public class GameManager : MonoBehaviour
     {
+        public static GameManager Instance;
+        
         [SerializeField] private BallController ballPrefab;
-        public GameManager Instance;
-
+        [SerializeField] private string levelScene;
+        [SerializeField] private string mainMenuScene;
+        [SerializeField] private string gameOverScene;
 
 
         private List<BallController> m_ballsOnScreen = new List<BallController>();
@@ -28,7 +31,8 @@ namespace _main.Scripts.StaticClass
             m_ballPool = new PoolGeneric<BallController>(ballPrefab);
         }
 
-
+        
+        
         public void MultiBall()
         {
             var l_prevBalls = m_ballsOnScreen;
@@ -36,7 +40,7 @@ namespace _main.Scripts.StaticClass
             for (int i = 0; i < l_prevBalls.Count; i++)
             {
                 var l_currBall = l_prevBalls[i];
-                var l_currDir = l_currBall.GetCurrDir();
+                var l_currDir = l_currBall.GetCurrDirVec();
                 //Iniitialize ball toward a similar direction
                 var l_ballOne = m_ballPool.GetOrCreate();
                 l_ballOne.Initialize(l_currBall.transform.position, Quaternion.Euler(0, 0, 25f) * l_currDir);

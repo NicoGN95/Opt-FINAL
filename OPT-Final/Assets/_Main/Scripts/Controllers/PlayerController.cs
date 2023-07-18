@@ -14,7 +14,7 @@ namespace _main.Scripts.Controllers
         [SerializeField] private float rightScreenBorder;
 
         private static IEventService EventService => ServiceLocator.Get<IEventService>();
-        private Vector2 m_movementInput;
+        private float m_MovementInput;
         private PhysicsBody m_myBody;
     
         private void Start()
@@ -26,26 +26,28 @@ namespace _main.Scripts.Controllers
         }
         private void OnMovementPerformed(InputAction.CallbackContext p_obj)
         {
-            m_movementInput = p_obj.ReadValue<Vector2>();
+            m_MovementInput = p_obj.ReadValue<float>();
         }
         private void OnMovementCanceled(InputAction.CallbackContext p_obj)
         {
-            m_movementInput = Vector2.zero;
+            m_MovementInput = 0f;
         }
         private void MyFixedUpdate()
         {
-            var l_moveDir = m_movementInput;
-            
-            if (transform.position.x > leftScreenBorder && m_movementInput.x < 0)
+            if ((transform.position.x < leftScreenBorder))
             {
-                l_moveDir = Vector3.right * (m_movementInput * speed);
+                m_myBody.Velocity = Vector2.zero;
+                transform.position =new Vector3(leftScreenBorder, transform.position.y);
+                return;
             }
-            if (transform.position.x < rightScreenBorder && m_movementInput.x > 0)
+
+            if (transform.position.x > rightScreenBorder)
             {
-                l_moveDir= Vector3.right * (m_movementInput * (speed * Time.deltaTime));
+                m_myBody.Velocity = Vector2.zero;
+                transform.position =new Vector3(rightScreenBorder, transform.position.y);
+                return;
             }
-            
-            m_myBody.AddForce(l_moveDir);
+            m_myBody.Velocity = Vector2.right * m_MovementInput * speed;
         }
 
         

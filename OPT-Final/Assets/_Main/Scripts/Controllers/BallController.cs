@@ -5,7 +5,6 @@ namespace _main.Scripts.Controllers
 {
     public class BallController : MonoBehaviour
     {
-
         private PhysicsBody m_myBody;
         private void Awake()
         {
@@ -14,10 +13,11 @@ namespace _main.Scripts.Controllers
 
         public void Initialize(Vector3 p_initPos,Vector3 p_initDirVec)
         {
-            
+            transform.position = p_initPos;
+            m_myBody.Velocity = p_initDirVec;
         }
 
 
-        public Vector3 GetCurrDir() => m_myBody.Velocity;
+        public Vector3 GetCurrDirVec() => m_myBody.Velocity;
     }
 }
