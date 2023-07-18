@@ -1,6 +1,6 @@
 using System;
 
-namespace _main.Scripts.Services.MicroServices.EventsServices
+namespace _main.Scripts.Services
 {
     public interface IEventService : IGameService
     {

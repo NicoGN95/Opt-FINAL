@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace _Main.Scripts
+namespace _main.Scripts.Pools
 {
     public class PoolGeneric<T> where T : Object
     {

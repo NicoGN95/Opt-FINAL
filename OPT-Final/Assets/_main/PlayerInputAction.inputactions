@@ -1,14 +1,14 @@
 {
-    "name": "PlayerInputActions",
+    "name": "PlayerInputAction",
     "maps": [
         {
             "name": "PlayerInput",
-            "id": "7c58798b-b671-40a5-a03a-53b7cd20d8f5",
+            "id": "9c3c9307-dc9f-4d19-a003-c9191d56cc54",
             "actions": [
                 {
                     "name": "Movement",
                     "type": "Button",
-                    "id": "54c4291d-ea28-453b-8332-045ada444911",
+                    "id": "730bea0b-0647-4d04-bd8e-9c1958820bc4",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -18,7 +18,7 @@
             "bindings": [
                 {
                     "name": "1D Axis",
-                    "id": "f23abfef-cc53-441e-99bc-104410cf3b18",
+                    "id": "7d8782cd-38ec-4ad3-8f0c-a551a5fd0b4f",
                     "path": "1DAxis",
                     "interactions": "",
                     "processors": "",
@@ -29,7 +29,7 @@
                 },
                 {
                     "name": "negative",
-                    "id": "04d3ebc2-ea66-460f-9a25-f6e17f1ab09e",
+                    "id": "ea272dff-c707-4b30-a32d-0317fe38386b",
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
@@ -40,7 +40,7 @@
                 },
                 {
                     "name": "positive",
-                    "id": "be894827-29ea-4916-be41-70b02a76d6ec",
+                    "id": "e8619e12-de87-41b8-a280-855ec30894b4",
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
@@ -51,7 +51,7 @@
                 },
                 {
                     "name": "1D Axis",
-                    "id": "6d096be5-ce7f-4a08-b88c-df615b504f49",
+                    "id": "a8c5f95d-bd7d-49cc-ab32-544a6b1ef73f",
                     "path": "1DAxis",
                     "interactions": "",
                     "processors": "",
@@ -62,7 +62,7 @@
                 },
                 {
                     "name": "negative",
-                    "id": "a113f601-a02a-44b2-b5b3-ac78972879bf",
+                    "id": "b32d759f-2579-44ff-8a17-45698ce3d7af",
                     "path": "<Keyboard>/leftArrow",
                     "interactions": "",
                     "processors": "",
@@ -73,7 +73,7 @@
                 },
                 {
                     "name": "positive",
-                    "id": "953bc53e-2883-4b13-839f-590856945cbf",
+                    "id": "8961fada-48d9-49f7-be55-02d11878727b",
                     "path": "<Keyboard>/rightArrow",
                     "interactions": "",
                     "processors": "",

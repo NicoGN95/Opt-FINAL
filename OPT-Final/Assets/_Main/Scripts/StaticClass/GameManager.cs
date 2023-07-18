@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using _Main.Scripts;
+using _main.Scripts.Controllers;
+using _main.Scripts.Pools;
 using UnityEngine;
 
 namespace _main.Scripts.StaticClass

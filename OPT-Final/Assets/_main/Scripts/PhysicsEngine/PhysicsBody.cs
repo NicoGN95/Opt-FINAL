@@ -1,5 +1,5 @@
 ﻿using System;
-using _Main._main.Scripts.Extensions;
+using _main.Scripts.Extensions;
 using UnityEngine;
 
 namespace _main.Scripts.PhysicsEngine

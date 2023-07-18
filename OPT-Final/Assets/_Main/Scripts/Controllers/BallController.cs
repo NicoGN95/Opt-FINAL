@@ -1,8 +1,7 @@
-﻿using System;
-using _main.Scripts.PhysicsEngine;
+﻿using _main.Scripts.PhysicsEngine;
 using UnityEngine;
 
-namespace _main.Scripts
+namespace _main.Scripts.Controllers
 {
     public class BallController : MonoBehaviour
     {
